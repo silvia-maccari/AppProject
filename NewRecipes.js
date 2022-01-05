@@ -15,11 +15,13 @@ const UseRecipes = () => {
     }
   }
 
+  // load all the items that are currently saved on every render. OnPress causes the component to rerender
   useEffect(() => {
     if (recipes.length) return;
     loadRecipes();
   },[])
 
+  // saves any additional items that get added. This runs on the first render and any time the dependency value changes
   useEffect(() => {
     AsyncStorage.setItem('@RecipeStore:Recipes', JSON.stringify(recipes));
   },[recipes])
