@@ -9,10 +9,13 @@ export default function AppNavigator() {
     return(
         <Stack.Navigator>
             <Stack.Screen
-            name="Home"
-            component={HomeScreen}
+                name="Home"
+                component={HomeScreen}
             />
-            <Stack.Screen name="NewRecipes" component={NewRecipes} />
+            <Stack.Screen 
+                name="NewRecipes" 
+                component={NewRecipes} 
+            />
         </Stack.Navigator>
     )
 }
