@@ -8,10 +8,7 @@ export default function HomeScreen(props) {
             <View style={styles.button}>
                 <Button 
                     title='View and edit to-do list'
-                    onPress={() => props.navigation.navigate('NewRecipes')} />
-            </View>
-            <View style={styles.button}>
-                <Button title='View saved recipes'/>
+                    onPress={() => props.navigation.navigate('NewToDos')} />
             </View>
             <StatusBar
                 animated={true}
