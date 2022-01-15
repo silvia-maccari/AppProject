@@ -32,7 +32,7 @@ const UseToDos = () => {
   };
   
   const removeTodo = todo => {
-    const index = todos.findIndex( item => item.todo === todo );
+    const index = todos.findIndex( item => item.todo === todo.todoName );
     let todosCopy = [...todos]
     todosCopy.splice( index, 1 );
     setTodos(todosCopy)
