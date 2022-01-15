@@ -1,49 +1,49 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Text, TextInput, StyleSheet, View, Button, FlatList } from 'react-native';
-import RecipeBox from "./components/RecipeBox"
+import TodoBox from "./components/TodoBox"
 import { generate } from "shortid"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const UseRecipes = () => {
-  const [recipes, setRecipes] = useState([])
+const UseToDos = () => {
+  const [todos, setTodos] = useState([])
 
-  const loadRecipes = async () => {
-    const recipeData = await AsyncStorage.getItem('@RecipeStore:Recipes');
-    if (recipeData) {
-      const recipes = JSON.parse(recipeData);
-      setRecipes(recipes);
+  const loadTodos = async () => {
+    const todoData = await AsyncStorage.getItem('@TodoStore:Todos');
+    if (todoData) {
+      const todos = JSON.parse(todoData);
+      setTodos(todos);
     }
   }
 
   // load all the items that are currently saved on every render. OnPress causes the component to rerender
   useEffect(() => {
-    if (recipes.length) return;
-    loadRecipes();
+    if (todos.length) return;
+    loadTodos();
   },[])
 
   // saves any additional items that get added. This runs on the first render and any time the dependency value changes
   useEffect(() => {
-    AsyncStorage.setItem('@RecipeStore:Recipes', JSON.stringify(recipes));
-  },[recipes])
+    AsyncStorage.setItem('@TodoStore:Todos', JSON.stringify(todos));
+  },[todos])
 
-  const addRecipe = recipe => {
-    const newRecipe = {id: generate(), recipe}
-    setRecipes([newRecipe,...recipes])
+  const addTodo = todo => {
+    const newTodo = {id: generate(), todo}
+    setTodos([newTodo,...todos])
   };
   
-  const removeRecipe = recipe => {
-    const index = recipes.findIndex( item => item.recipe === recipe );
-    let recipesCopy = [...recipes]
-    recipesCopy.splice( index, 1 );
-    setRecipes(recipesCopy)
+  const removeTodo = todo => {
+    const index = todos.findIndex( item => item.todo === todo.todoName );
+    let todosCopy = [...todos]
+    todosCopy.splice( index, 1 );
+    setTodos(todosCopy)
   };
-  return { recipes, addRecipe, removeRecipe };
+  return { todos, addTodo, removeTodo };
 };
 
-export default function NewRepcipes() {
+export default function NewToDos() {
     const [name, setName] = useState('');
     const nameInput = useRef();
-    const { recipes, addRecipe, removeRecipe } = UseRecipes();
+    const { todos, addTodo, removeTodo } = UseToDos();
 
     return (
         <View style = {styles.container}>
@@ -52,7 +52,7 @@ export default function NewRepcipes() {
             <TextInput
               ref = {nameInput} 
               style = {styles.input}
-              placeholder="Enter recipe details..."
+              placeholder="Enter to do details..."
               value={name}
               onChangeText={setName}
             />
@@ -62,18 +62,18 @@ export default function NewRepcipes() {
                 title='Add'
                 onPress={() => {
                   nameInput.current.blur();
-                  addRecipe(name);
+                  addTodo(name);
                   setName("");
                 }}
               />
           </View>
           </View>
           <FlatList
-            data = {recipes}
+            data = {todos}
             renderItem = {
               ({item}) => {
                 return (
-                  <RecipeBox recipeName = {item.recipe} removeHandler = {removeRecipe}/>
+                  <TodoBox todoName = {item.todo} removeHandler = {removeTodo}/>
                 )
               }
             }

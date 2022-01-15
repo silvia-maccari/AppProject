@@ -1,15 +1,16 @@
 import React from 'react';
 import { Text, StyleSheet, View, Button } from 'react-native';
 
-export default function RecipeBox( {recipeName, removeHandler} ) {
+export default function TodoBox( {todoName, removeHandler} ) {
     return (
         <View style={styles.box} >
-            <Text>{recipeName}</Text>
+            <Text>{todoName}</Text>
             <View>
                 <Button
                     title = 'Remove'
+                    color="#f194ff"
                     onPress = {
-                        () =>removeHandler({recipeName})
+                        () =>removeHandler({todoName})
                     }
                 />
             </View>
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
     box: {
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
       flex:1,
       borderRadius: 10,
       borderWidth: 4,
