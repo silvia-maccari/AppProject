@@ -8,6 +8,7 @@ export default function TodoBox( {todoName, removeHandler} ) {
             <View>
                 <Button
                     title = 'Remove'
+                    color="#f194ff"
                     onPress = {
                         () =>removeHandler({todoName})
                     }
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
     box: {
       flexDirection: 'row',
       alignItems: 'center',
+      justifyContent: 'space-between',
       flex:1,
       borderRadius: 10,
       borderWidth: 4,
